@@ -1,48 +1,53 @@
-import React from 'react';
-import './style.scss';
+import React, { ButtonHTMLAttributes, FC,
+AnchorHTMLAttributes} from 'react'
+import classNames from 'classnames';
 
-export interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
+export type ButtonSize = 'lg' | 'sm'
+export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
+/**
+ * Interface for button types
+ */
+interface BaseButtonProps {
+  size?: ButtonSize;
+  btnType?: ButtonType;
+  className?: string;
+  disabled?: boolean;
+  children: React.ReactNode;
+  /** Maybe could have url type */
+  href?: string;
+}
+export type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
+export type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
+/** Partial??? */
+export type ButtonProps =  Partial<NativeButtonProps & AnchorButtonProps>
+
+export const Button: FC<ButtonProps> = (props)=>{
+  const {
+    size, 
+    btnType, 
+    className, 
+    disabled, 
+    children, 
+    href,
+    ...restProps
+  } = props;
+
+  // styles
+  const classes = classNames('btn', className, {
+    [`btn-${size}`]: size,
+    [`btn-${btnType}`]: btnType,
+     'disabled': (btnType === 'link') && disabled
+  })
+  console.log("classes", classes);
+
+
+  return(
+    <button className={classes}
+      disabled={disabled}
+      {...restProps}>
+       {children}
+    </button>
+  )
 }
 
-/**
- * Primary UI component for user interaction
- */
-export const Button: React.FC<ButtonProps> = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
-  return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
-  );
-};
+export default Button;

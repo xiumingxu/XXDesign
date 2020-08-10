@@ -3,7 +3,7 @@ import { withInfo } from '@storybook/addon-info'
 import React from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-// import "../src/styles/index.scss"
+import "../src/styles/index.scss"
 library.add(fas)
 const wrapperStyle: React.CSSProperties = {
   padding: '20px 40px'
@@ -15,7 +15,7 @@ const storyWrapper = (stroyFn: any) => (
     {stroyFn()}
   </div>
 )
-addDecorator(storyWrapper)
+// addDecorator(storyWrapper)
 addDecorator(withInfo)
 addParameters({info: { inline: true, header: false}})
 const loaderFn = () => {
