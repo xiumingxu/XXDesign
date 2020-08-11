@@ -8,6 +8,7 @@
   $background,
   $border,
   $color,
+  /**ligten sass 的函数*/
   $hover-background: lighten($background, 7.5%),
   $hover-border: lighten($border, 10%),
   $hover-color: $color,

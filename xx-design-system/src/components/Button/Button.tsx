@@ -36,18 +36,28 @@ export const Button: FC<ButtonProps> = (props)=>{
   const classes = classNames('btn', className, {
     [`btn-${size}`]: size,
     [`btn-${btnType}`]: btnType,
-     'disabled': (btnType === 'link') && disabled
+     'disabled': disabled
   })
-  console.log("classes", classes);
 
+  if(btnType !== "link"){
+      return(
+        <button className={classes}
+          disabled={disabled}
+          {...restProps}>
+          {children}
+        </button>
+      )
+  }else{
+      return(<a className={classes}
+          disabled={disabled}
+          {...restProps}
+          href={href}
+          target="_">
 
-  return(
-    <button className={classes}
-      disabled={disabled}
-      {...restProps}>
-       {children}
-    </button>
-  )
+          {children}
+          </a>
+      );
+    }
 }
 
 export default Button;
