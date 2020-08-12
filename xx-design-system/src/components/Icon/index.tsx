@@ -1,2 +1,2 @@
-import Button from './button'
-export default Button 
+import Icon from './icon'
+export default Icon 

@@ -11,15 +11,15 @@ const wrapperStyle: React.CSSProperties = {
 
 const storyWrapper = (stroyFn: any) => (
   <div style={wrapperStyle}>
-    <h3>组件演示</h3>
+    <h3> XX Design System showbuch</h3>
     {stroyFn()}
   </div>
 )
-// addDecorator(storyWrapper)
+addDecorator(storyWrapper)
 addDecorator(withInfo)
 addParameters({info: { inline: true, header: false}})
 const loaderFn = () => {
-  const allExports = [];
+  const allExports = [require('../src/welcome.stories.tsx')];
   const req = require.context('../src/components', true, /\.stories\.tsx$/);
   req.keys().forEach(fname => allExports.push(req(fname)));
   return allExports;
@@ -28,20 +28,3 @@ const loaderFn = () => {
 
 // automatically import all files ending in *.stories.js
 configure(loaderFn, module);
-
-
-// module.exports = {
-//   "stories": [
-//     "../src/**/*.stories.mdx",
-//     "../src/components/*.stories.@(js|jsx|ts|tsx)"
-//   ],
-//   "addons": [
-//     "@storybook/addon-links",
-//     "@storybook/addon-essentials",
-//     "@storybook/preset-create-react-app"
-//   ]
-// }
-
-// export const parameters = {
-//   actions: { argTypesRegex: "^on[A-Z].*" },
-// }

@@ -1,32 +1,28 @@
 import React, {FC} from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames';
+export type ThemeProps =  "primary" |"secondary" |"success" |"info" |"warning" |"danger" |"light" |"dark" 
 
-interface IconProps {
-  icon: string;
-  color?: string;
-  size?:string;
-  action?: string;
-  className?: string;
+export interface IconProps extends FontAwesomeIconProps{
+  theme: ThemeProps;
 }
+
+
 export const Icon:FC<IconProps> = (props)=>{
   const {
+    theme,
+    className,
     icon,
-    color,
-    size,
-    action,
-    className
+    ...restProps
   } = props
   
-  const classes = classNames(['icon', className,{
-      [`icon-${size}`]: size,
-      [`icon-${color}`]: color
-    }
-  ])
+  const classes = classNames('xx-icon', className, {
+      [`icon-${theme}`]: theme }
+  )
   
   return <div className={classes}>
-      <FontAwesomeIcon icon={faCoffee}/>
+      <FontAwesomeIcon icon={faCoffee} {...restProps} />
     </div>
 }
 
