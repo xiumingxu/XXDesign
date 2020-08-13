@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
 
-import { Button, ButtonProps } from './button';
+import { Button } from './button';
 
 // const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
