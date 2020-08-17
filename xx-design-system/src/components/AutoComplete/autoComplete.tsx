@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import axios from 'axios';
 import Input, { InputProps } from '../Input/input'
 import Transition from '../Transition';
+import useDebounce from '../../hooks/useDebounce';
 
 // export interface AutoCompleteProps{//???  extends InputHTMLAttributes 
 //   classname?: string;
@@ -28,6 +29,10 @@ export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
 export const AutoComplete:FC<AutoCompleteProps> = (props)=>{
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [value, setValue] = useState("");
+  // value如果相同就不会改, 不同的话隔了很长时间才会更新
+  const deboucedValue = useDebounce(value, 300);
+
+  console.log("deboucedValue", deboucedValue);
 
   const[loading, setLoading] =  useState(false)
   // const[showDropDown, setLoading] =  useState(false)
@@ -64,7 +69,7 @@ export const AutoComplete:FC<AutoCompleteProps> = (props)=>{
     }else{
        setSuggestions(res);
     }
-  },[value])
+  },[deboucedValue])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>{
     setValue(e.target.value);
