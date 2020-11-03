@@ -1,0 +1,11 @@
+.canvas-wrapper{
+    position: relative;
+    background: black;
+    width: 100%;
+    min-height: 600px;
+    &canvas {
+        padding: $canvas-wrapper-padding;
+        position: absolute;
+        background: white;
+    }
+}
