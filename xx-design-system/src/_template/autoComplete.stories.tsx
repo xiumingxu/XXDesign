@@ -14,7 +14,8 @@ import { AutoComplete } from './autoComplete';
 
 const AutoCompleteBasic = () => (
   <>
-    <AutoComplete placeholder="basic input">  </AutoComplete>
+  placeholder
+    {/* <AutoComplete placeholder="basic input">  </AutoComplete> */}
   </>
 )
 

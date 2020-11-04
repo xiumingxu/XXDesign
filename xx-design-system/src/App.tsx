@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App:React.FC = ()=>{
+  const [cb, setCb]= useState('');
+  const handleUpload = (e: ChangeEvent<HTMLInputElement>)=>{
+    const files = e.target.files;
+    const dest = 'https://jsonplaceholder.typicode.com/posts'
+
+    if(files){
+      const uploadFile  = files[0];
+      const formData = new FormData();
+      formData.append(uploadFile.name, uploadFile);
+      axios.post(dest,formData, {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(resp =>{
+        setCb(resp.toString());
+      })
+    }
+
+  }
+  return <div className="App">
+    
+    <input type="file"  name="myFile" onChange={handleUpload}></input>
+    <>{cb}</>
+  </div>
 }
-
 export default App;

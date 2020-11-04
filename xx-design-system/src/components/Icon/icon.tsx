@@ -1,5 +1,9 @@
 import React, {FC} from 'react'
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome'
+import {
+  IconProp,
+
+} from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames';
 export type ThemeProps =  "primary" |"secondary" |"success" |"info" |"warning" |"danger" |"light" |"dark" 
@@ -22,7 +26,7 @@ export const Icon:FC<IconProps> = (props)=>{
   )
   
   return <div className={classes}>
-      <FontAwesomeIcon icon={faCoffee} {...restProps} />
+      <FontAwesomeIcon icon={icon} {...restProps} />
     </div>
 }
 

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 export type ThemeProps =  "primary" |"secondary" |"success" |"info" |"warning" |"danger" |"light" |"dark" 
 
 export interface AutoCompleteProps {
+  classname:string
 }
 
 

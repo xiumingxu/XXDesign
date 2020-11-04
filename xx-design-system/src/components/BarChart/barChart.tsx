@@ -10,4 +10,12 @@ export interface BarChartProps {
 export const BarChart:FC<BarChartProps> = (props)=>{
   const {
     classname,
-    ...restPropsg
+    ...restProps
+  } = props
+  
+  const classes = classNames(classname)
+  return <div className={classes}>
+    </div>
+}
+
+export default BarChart;

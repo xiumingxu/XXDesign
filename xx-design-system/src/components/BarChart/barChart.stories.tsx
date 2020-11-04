@@ -14,7 +14,7 @@ import { BarChart } from './barChart';
 
 const BarChartBasic = () => (
   <>
-    <BarChart placeholder="basic input">  </BarChart>
+    <BarChart>  </BarChart>
   </>
 )
 

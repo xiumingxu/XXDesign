@@ -49,7 +49,6 @@ export const Button: FC<ButtonProps> = (props)=>{
       )
   }else{
       return(<a className={classes}
-          disabled={disabled}
           {...restProps}
           href={href}
           target="_">

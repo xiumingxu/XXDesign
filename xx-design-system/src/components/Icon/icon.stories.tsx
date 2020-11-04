@@ -3,6 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react'
 
 import { Icon } from './icon';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 // export default {
 //   title: 'XXDesign/Icon',
@@ -14,8 +15,8 @@ import { Icon } from './icon';
 
 const IconWithTheme = () => (
   <>
-    <Icon theme="primary"> primary Icon </Icon>
-    <Icon theme="secondary"> secondary Icon </Icon>
+    <Icon theme="primary" icon={faCoffee}> primary Icon </Icon>
+    <Icon theme="secondary" icon={faCoffee}> secondary Icon </Icon>
   </>
 )
 
