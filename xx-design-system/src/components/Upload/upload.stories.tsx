@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import Upload from './upload'
+import Upload, { UploadFile } from './upload'
 import { storiesOf } from '@storybook/react'
 import { resolve } from 'dns';
 import { rejects } from 'assert';
 // const action = 'https://jsonplaceholder.typicode.com/posts/'
 const action = 'https://run.mocky.io/v3/29248ed0-4879-4905-bdce-2a724106f482';
-const onProgress = (percentage: number) => console.log("progress:", percentage);
+const onProgress = (file: UploadFile) => console.log("file:", file);
 const onSuccess = () => console.log("success")
 const onError = () => console.log("error");
 let beforeUpload;

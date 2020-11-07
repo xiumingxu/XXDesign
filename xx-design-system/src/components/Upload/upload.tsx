@@ -1,14 +1,24 @@
 
-import React, { ChangeEvent, FC, useRef } from 'react';
+import React, { ChangeEvent, FC, useRef, useState} from 'react';
 import classNames from 'classnames';
 import Button from '../Button/button';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
-
+type UploadFileStatus = 'ready' | 'success' | 'error' | 'processing'
+export interface UploadFile{
+  uid: string;
+  size: number;
+  name:string;
+  percentage: number;
+  status?: UploadFileStatus;
+  raw?: File;
+  response?: AxiosResponse;
+  error?: AxiosError;
+}
 export interface UploadProps {
   classname?: string,
   action: string;
-  onProgress?: (percentage: number, file: File) => void;
+  onProgress?: (file:UploadFile) => void;
   onError?: (file: File) => void;
   onSuccess?: (data: AxiosResponse, file: File) => void;
   onChange?: (file: File) => void;
@@ -29,6 +39,7 @@ const Upload: FC<UploadProps> = (props) => {
     ...restProps
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
+  const [fileList, setFileList] =  useState<UploadFile[]>([]);
 
   const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -55,6 +66,14 @@ const Upload: FC<UploadProps> = (props) => {
     }
   }
   const post = (file:File)=>{
+    const _file: UploadFile = {
+      uid: Date.now() + 'upload-file',
+      percentage: 0,
+      raw: file,
+      size: file.size,
+      name: file.name,
+      status: 'ready',
+    }
     const formData = new FormData();
       formData.append(file.name, file);
       axios.post(action, formData, {
@@ -63,18 +82,32 @@ const Upload: FC<UploadProps> = (props) => {
         },
         onUploadProgress: (e: ProgressEvent) => {
           const percentage = Math.round(e.loaded * 100 / e.total) || 0;
+          updateFileList(_file, {status: 'processing', percentage});
           if (percentage < 100 && onProgress)
-            onProgress(percentage, file);
+              onProgress({..._file, percentage});
         }
       }).then(resp => {
+        updateFileList(_file, {status: 'success', response: resp})
         if (onSuccess)
           onSuccess(resp.data, file);
         if (onChange)
           onChange(file);
       }).catch(error => {
+        updateFileList(_file, { status: 'error', error: error })
         if (onError) onError(file);
         if(onChange) onChange(file);
       })
+  }
+  const updateFileList = (uploadFile:UploadFile, updateObj:Partial<UploadFile>)=>{
+    setFileList((prevList)=>{
+      return prevList.map(file=>{
+        if(file.uid === uploadFile.uid){
+          return {...uploadFile, ...updateObj}
+        }else{
+          return file;
+        }
+      })
+    })
   }
 
   const handleClick = () => {
