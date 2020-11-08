@@ -3,6 +3,7 @@ import React, { ChangeEvent, FC, useRef, useState} from 'react';
 import classNames from 'classnames';
 import Button from '../Button/button';
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import UploadList from './uploadlist';
 
 type UploadFileStatus = 'ready' | 'success' | 'error' | 'processing'
 export interface UploadFile{
@@ -119,6 +120,7 @@ const Upload: FC<UploadProps> = (props) => {
   return <div className={classes}>
     <Button onClick={handleClick}>Upload </Button>
     <input ref={inputRef} type="file" style={{ "display": "none" }} onChange={handleUpload} />
+    <UploadList fileList={fileList} />
   </div>
 }
 export default Upload;

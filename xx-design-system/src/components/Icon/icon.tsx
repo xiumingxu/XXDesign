@@ -18,6 +18,7 @@ export const Icon:FC<IconProps> = (props)=>{
     theme,
     className,
     icon,
+    style,
     ...restProps
   } = props
   
@@ -25,7 +26,7 @@ export const Icon:FC<IconProps> = (props)=>{
       [`icon-${theme}`]: theme }
   )
   
-  return <div className={classes}>
+  return <div className={classes} style={style}>
       <FontAwesomeIcon icon={icon} {...restProps} />
     </div>
 }
