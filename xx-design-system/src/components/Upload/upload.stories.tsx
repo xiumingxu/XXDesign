@@ -27,7 +27,8 @@ beforeUpload = renameFile;
 const props = {
   action, onProgress,
   onSuccess,onError,
-  beforeUpload,onChange
+  // beforeUpload
+  onChange
 }
 const UploadBasic = () => (<Upload {...props}
 />)

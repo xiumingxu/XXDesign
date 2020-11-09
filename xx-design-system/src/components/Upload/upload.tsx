@@ -75,6 +75,7 @@ const Upload: FC<UploadProps> = (props) => {
       name: file.name,
       status: 'ready',
     }
+    setFileList(fileList.concat(_file));
     const formData = new FormData();
       formData.append(file.name, file);
       axios.post(action, formData, {

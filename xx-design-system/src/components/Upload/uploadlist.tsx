@@ -2,6 +2,7 @@ import React from 'react';
 import { UploadFile } from './upload';
 import classNames from 'classnames'
 import Icon from '../Icon';
+import Progress from '../Progress/progress';
 
 interface UploadListProps{
     fileList: UploadFile[];
@@ -42,8 +43,7 @@ interface UploadListItem{
 }
 const UploadListItem:React.FC<UploadListItem> = (props)=>{
     const { item, onRemove } = props;
-    const {name, status, uid} =  item;
-
+    const {name, status, uid, percentage} =  item;
     
        
     return <li className="xx-upload-list-item" key={'file-list-item'+ uid}>
@@ -59,18 +59,18 @@ const UploadListItem:React.FC<UploadListItem> = (props)=>{
         {onRemove && <span className="file-actions">
             <Icon icon="times" theme="primary" onClick={() => { onRemove(item) }} />
         </span>}
-        {/* {item.status === 'processing' &&
+        {item.status === 'processing' &&
             <Progress
-                percent={item.percent || 0}
+                percentage={percentage || 0}
             />
-        } */}
+        }
     </li >
 }
 export const UploadList: React.FC<UploadListProps> = (props)=>{
     const{
         fileList
     } = props;
-    const list = defaultFileList;
+    const list = fileList || defaultFileList;
     return <ul className="xx-upload-list">
         {list.map(item=><UploadListItem item={item} />)}
     </ul>
