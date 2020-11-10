@@ -9,7 +9,7 @@ import classNames from 'classnames';
 export type ThemeProps =  "primary" |"secondary" |"success" |"info" |"warning" |"danger" |"light" |"dark" 
 
 export interface IconProps extends FontAwesomeIconProps{
-  theme: ThemeProps;
+  theme?: ThemeProps;
 }
 
 
@@ -22,6 +22,7 @@ export const Icon:FC<IconProps> = (props)=>{
     ...restProps
   } = props
   
+  
   const classes = classNames('xx-icon', className, {
       [`icon-${theme}`]: theme }
   )
@@ -30,5 +31,6 @@ export const Icon:FC<IconProps> = (props)=>{
       <FontAwesomeIcon icon={icon} {...restProps} />
     </div>
 }
+
 
 export default Icon;

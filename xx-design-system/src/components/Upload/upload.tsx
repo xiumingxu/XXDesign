@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Button from '../Button/button';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import UploadList from './uploadlist';
+import Dragger from './dragger';
 
 type UploadFileStatus = 'ready' | 'success' | 'error' | 'processing'
 export interface UploadFile{
@@ -25,6 +26,7 @@ export interface UploadProps {
   onChange?: (file: File) => void;
   // here is File as a type
   beforeUpload?: (file: File) => boolean | Promise<File>;
+  drag?: boolean;
 }
 
 
@@ -37,6 +39,8 @@ const Upload: FC<UploadProps> = (props) => {
     onError,
     beforeUpload,
     onChange,
+    children,
+    drag,
     ...restProps
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -115,13 +119,23 @@ const Upload: FC<UploadProps> = (props) => {
   const handleClick = () => {
     if (inputRef && inputRef.current) inputRef.current.click();
   }
+  const subInput  = children? children: 
+    <Button >Upload </Button>
 
 
-  const classes = classNames(classname)
-  return <div className={classes}>
-    <Button onClick={handleClick}>Upload </Button>
+  const classes = classNames(classname, "xx-upload-input")
+  return <div className="xx-upload-component">
+    <div className="xx-`upload` -input" onClick={handleClick}>
+      {drag ? <Dragger onDragDrop={(files)=>uploadFiles(files)}>
+        {children}
+      </Dragger> : subInput}
+      
+    </div>
     <input ref={inputRef} type="file" style={{ "display": "none" }} onChange={handleUpload} />
     <UploadList fileList={fileList} />
   </div>
+}
+Upload.defaultProps = {
+  drag: true
 }
 export default Upload;
