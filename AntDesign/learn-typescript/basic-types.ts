@@ -28,4 +28,8 @@ function test() {
   console.log(arguments)
 }
 
+//tuple: a data structure consisting of multiple parts.
 let user: [string, number] = ['viking', 1]
+user = ['moli', 2]
+user = ['moli']
+user[1] = 'moli'

@@ -1,4 +1,4 @@
-const enum Direction {
+enum Direction {
   Up = 'UP',
   Down = 'DOWN',
   Left = 'LEFT',

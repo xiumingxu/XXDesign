@@ -6,4 +6,5 @@ interface Person {
 let viking: Person = {
   id: 1234,
   name: 'viking',
+  shit: 2
 }
